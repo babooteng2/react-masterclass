@@ -4,13 +4,13 @@ Learn and dominate the React ecosystem once and for all.
 
 ### Using:
 - [x] Styled Components
-- [] Recoil
-- [] React Query
-- [] React Router DOM
-- [] Apex Charts
-- [] React Spring
-- [] Typescript
-- [] Firebase
+- [ ] Recoil
+- [ ] React Query
+- [ ] React Router DOM
+- [ ] Apex Charts
+- [ ] React Spring
+- [ ] Typescript
+- [ ] Firebase
 
 ## Installation
 

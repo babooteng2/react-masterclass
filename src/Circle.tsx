@@ -1,4 +1,3 @@
-import { useState } from "react";
 import styled from "styled-components";
 
 interface ContainerProps {
@@ -20,9 +19,7 @@ interface CircleProps {
     text?: string;
 }
 
-function Circle({bgColor, borderColor, text = "default text"}: CircleProps) {
-    const [counter, setCounter] = useState<number|string>(0);
-    setCounter("1"); // it makes no type error
+function Circle({bgColor, borderColor, text = "default text"}: CircleProps) {    
     return <Container bgColor={bgColor} borderColor={borderColor ?? bgColor}>{text}</Container>
 }
 

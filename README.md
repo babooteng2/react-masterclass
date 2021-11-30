@@ -43,3 +43,12 @@ yarn create react-app my-app --template typescript
 ```node
 npm i react-router-dom react-query
 ```
+
+# eg
+
+```node
+font
+https://fonts.google.com/specimen/Source+Sans+Pro
+colorpick
+https://flatuicolors.com/palette/defo
+```

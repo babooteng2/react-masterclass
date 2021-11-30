@@ -51,4 +51,8 @@ font
 https://fonts.google.com/specimen/Source+Sans+Pro
 colorpick
 https://flatuicolors.com/palette/defo
+api link
+https://api.coinpaprika.com/v1/coins
+chrome extension json-formatter
+https://chrome.google.com/webstore/detail/json-formatter/bcjindcccaagfpapjjmafapmmgkkhgoa/related?hl=ko
 ```

@@ -57,4 +57,8 @@ chrome extension json-formatter
 https://chrome.google.com/webstore/detail/json-formatter/bcjindcccaagfpapjjmafapmmgkkhgoa/related?hl=ko
 cryptoicon
 https://cryptoicon-api.vercel.app/api/icon/btc
+detail info
+https://api.coinpaprika.com/v1/coins/btc-bitcoin
+coin price
+https://api.coinpaprika.com/v1/tickers/btc-bitcoin
 ```

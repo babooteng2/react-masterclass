@@ -128,7 +128,6 @@ function Coin() {
   const [priceInfo, setPriceInfo] = useState<IPriceData>();
   const { coinId } = useParams();
   const { state } = useLocation();
-  const priceMatch = useMatch("/:coinId/price");
   const chartMatch = useMatch("/:coinId/chart");
   const getInfos = useCallback(async () => {
     const infoData = await (
@@ -184,7 +183,7 @@ function Coin() {
             </OverviewItem>
           </Overview>
           <Tabs>
-            <Tab isActive={priceMatch ? true : false}>
+            <Tab isActive={chartMatch ? false : true}>
               <Link to="price">price</Link>
             </Tab>
             <Tab isActive={chartMatch ? true : false}>

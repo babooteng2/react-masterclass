@@ -1,6 +1,8 @@
 import { useCallback, useEffect, useState } from "react";
-import { useLocation, useParams } from "react-router";
+import { Route, Routes, useLocation, useParams } from "react-router";
 import styled from "styled-components";
+import Chart from "./Chart";
+import Price from "./Price";
 
 const Container = styled.div`
   padding: 0px 20px;
@@ -8,17 +10,42 @@ const Container = styled.div`
   margin: 0 auto;
 `;
 const Header = styled.header`
-  height: 10vh;
+  height: 15vh;
   display: flex;
   justify-content: center;
   align-items: center;
 `;
 const Title = styled.h1`
+  font-size: 2em;
+  font-weight: bolder;
   color: ${(props) => props.theme.accentColor};
 `;
 const Loader = styled.span`
   text-align: center;
   display: block;
+`;
+const Overview = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 15px;
+  padding: 15px 20px;
+
+  span:first-child {
+    font-size: 10px;
+    font-weight: 900;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+  }
+`;
+const OverviewItem = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+const Description = styled.p`
+  margin: 20px 5px;
 `;
 
 interface IInfoData {
@@ -99,13 +126,47 @@ function Coin() {
   }, [getInfos]);
   return (
     <Container>
-      <Header>{<Title>{state?.name || "Loading..."}</Title>}</Header>
+      <Header>
+        {
+          <Title>
+            {state?.name ? state.name : loading ? "Loading..." : info?.name}
+          </Title>
+        }
+      </Header>
       {loading ? (
         <Loader>Loading...</Loader>
       ) : (
         <>
-          <h1>Rank : {info?.rank}</h1>
-          <span>{priceInfo?.quotes.USD.price}</span>
+          <Overview>
+            <OverviewItem>
+              <span>rank:</span>
+              <span>{info?.rank}</span>
+            </OverviewItem>
+            <OverviewItem>
+              <span>symbol:</span>
+              <span>{info?.symbol}</span>
+            </OverviewItem>
+            <OverviewItem>
+              <span>open source:</span>
+              <span>{info?.open_source ? "TRUE" : "FALSE"}</span>
+            </OverviewItem>
+          </Overview>
+          <Description>{info?.description}</Description>
+          <Overview>
+            <OverviewItem>
+              <span>total supply:</span>
+              <span>{priceInfo?.total_supply}</span>
+            </OverviewItem>
+            <OverviewItem>
+              <span>max supply:</span>
+              <span>{priceInfo?.max_supply}</span>
+            </OverviewItem>
+          </Overview>
+          <Routes>
+            <Route index element={<Price />} />
+            <Route path="price" element={<Price />} />
+            <Route path="chart" element={<Chart />} />
+          </Routes>
         </>
       )}
     </Container>

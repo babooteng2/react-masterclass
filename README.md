@@ -8,7 +8,7 @@ Learn and dominate the React ecosystem once and for all.
 - [ ] Recoil
 - [x] React Query
 - [x] React Router DOM
-- [ ] Apex Charts
+- [x] Apex Charts
 - [ ] React Spring
 - [x] Typescript
 - [ ] Firebase
@@ -42,6 +42,12 @@ yarn create react-app my-app --template typescript
 
 ```node
 npm i react-router-dom react-query
+```
+
+# Apex Charts
+
+```node
+npm install --save react-apexcharts apexcharts
 ```
 
 # eg

@@ -126,7 +126,7 @@ interface IPriceData {
 function Coin() {
   const { coinId } = useParams();
   const { state } = useLocation();
-  const chartMatch = useMatch("/:coinId/chart");
+  const priceMatch = useMatch("/:coinId/price");
   const { isLoading: infoLoading, data: infoData } = useQuery<IInfoData>(
     ["info", coinId],
     () => fetchCoinInfo(coinId)
@@ -135,25 +135,6 @@ function Coin() {
     ["tickers", coinId],
     () => fetchCoinTickers(coinId)
   );
-  /*
-  const [loading, setLoading] = useState(true);
-  const [info, setInfo] = useState<IInfoData>();
-  const [priceInfo, setPriceInfo] = useState<IPriceData>();
-  const getInfos = useCallback(async () => {
-    const infoData = await (
-      await fetch(`https://api.coinpaprika.com/v1/coins/${coinId}`)
-    ).json();
-    const priceData = await (
-      await fetch(`https://api.coinpaprika.com/v1/tickers/${coinId}`)
-    ).json();
-    setInfo(infoData);
-    setPriceInfo(priceData);
-    setLoading(false);
-  }, [coinId]);
-
-  useEffect(() => {
-    getInfos();
-  }, [getInfos]); */
   const loading = infoLoading || tickersLoading;
   return (
     <Container>
@@ -194,17 +175,17 @@ function Coin() {
             </OverviewItem>
           </Overview>
           <Tabs>
-            <Tab isActive={chartMatch ? false : true}>
-              <Link to="price">price</Link>
-            </Tab>
-            <Tab isActive={chartMatch ? true : false}>
+            <Tab isActive={priceMatch ? false : true}>
               <Link to="chart">chart</Link>
+            </Tab>
+            <Tab isActive={priceMatch ? true : false}>
+              <Link to="price">price</Link>
             </Tab>
           </Tabs>
           <Routes>
-            <Route index element={<Price />} />
+            <Route index element={<Chart coinId={coinId as string} />} />
+            <Route path="chart" element={<Chart coinId={coinId as string} />} />
             <Route path="price" element={<Price />} />
-            <Route path="chart" element={<Chart />} />
           </Routes>
         </>
       )}

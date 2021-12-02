@@ -53,6 +53,7 @@ function Chart({ coinId }: ChartProps) {
             },
             yaxis: { labels: { show: false } },
             xaxis: {
+              /* type: "datetime", */
               labels: { show: false },
               axisBorder: {
                 show: false,
@@ -60,13 +61,20 @@ function Chart({ coinId }: ChartProps) {
               axisTicks: {
                 show: false,
               },
+              categories: data?.map((prop) => prop.time_close.slice(0, 10)),
             },
             fill: {
               colors: ["#0fbcf9"],
               type: "gradient",
               gradient: {
-                type: "vertical",
+                type: "Horizontal",
                 gradientToColors: ["#0be881"],
+                stops: [0, 100],
+              },
+            },
+            tooltip: {
+              y: {
+                formatter: (value) => `$${value.toFixed(3)}`,
               },
             },
           }}

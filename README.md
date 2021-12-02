@@ -67,4 +67,7 @@ detail info
 https://api.coinpaprika.com/v1/coins/btc-bitcoin
 coin price
 https://api.coinpaprika.com/v1/tickers/btc-bitcoin
+direct link to the head of document
+npm i react-helmet
+npm i --save-dev @types/react-helmet
 ```

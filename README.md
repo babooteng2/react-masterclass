@@ -5,7 +5,7 @@ Learn and dominate the React ecosystem once and for all.
 ### Using:
 
 - [x] Styled Components
-- [ ] Recoil
+- [x] Recoil
 - [x] React Query
 - [x] React Router DOM
 - [x] Apex Charts
@@ -19,6 +19,12 @@ Learn and dominate the React ecosystem once and for all.
 
 ```node
 npm i styled-components
+```
+
+# Recoil
+
+```node
+npm i recoil
 ```
 
 vscode extensions(ctrl+shift+x)

@@ -76,4 +76,5 @@ https://api.coinpaprika.com/v1/tickers/btc-bitcoin
 direct link to the head of document
 npm i react-helmet
 npm i --save-dev @types/react-helmet
+npm i react-hook-form
 ```

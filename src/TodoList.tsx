@@ -28,13 +28,30 @@ import { useForm } from "react-hook-form";
   );
 } */
 
+interface IForm {
+  email: string;
+  firstName: string;
+  lastName: string;
+  username: string;
+  password: string;
+  password1: string;
+}
+
 function TodoList() {
-  const { register, handleSubmit, formState } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<IForm>({
+    defaultValues: {
+      email: "@gmail.com",
+    },
+  });
   const onValid = (data: any) => {
     //console.log(data);
     console.log("send");
   };
-  console.log("error ", formState.errors);
+  console.log("error ", errors);
   return (
     <div>
       <form
@@ -43,14 +60,17 @@ function TodoList() {
       >
         <input
           {...register("email", {
-            required: true,
+            required: "email is required",
             pattern: {
-              value: /^[A-Za-z0-9._%+-]+@naver.com$/,
-              message: "you should input **@**.com format",
+              value:
+                // eslint-disable-next-line
+                /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/,
+              message: "you should input correct email format",
             },
           })}
           placeholder="Email"
         />
+        <span>{errors?.email?.message}</span>
         <input
           {...register("firstName", { required: true })}
           placeholder="First Name"

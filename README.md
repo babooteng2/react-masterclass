@@ -78,3 +78,8 @@ npm i react-helmet
 npm i --save-dev @types/react-helmet
 npm i react-hook-form
 ```
+
+### TO DO CHALLANGE
+
+- [x] delete function
+- [ ] localStorage saving

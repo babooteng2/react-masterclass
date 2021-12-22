@@ -80,3 +80,10 @@ npm i react-hook-form
 npm i react-beautiful-dnd
 npm i --save-dev @types/react-beautiful-dnd
 ```
+
+# to do
+
+- [ ] Delete to do - drag and drop trashcan
+- [ ] Save data to local storage.
+- [ ] Create new boards customized by user.
+- [ ] Optional) dragging apply to boards.

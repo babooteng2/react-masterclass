@@ -10,7 +10,7 @@ const Wrapper = styled.div`
   align-items: center;
 `;
 
-const Box = styled.div`
+const Box = styled(motion.div)`
   width: 200px;
   height: 200px;
   background-color: white;
@@ -22,9 +22,17 @@ function App() {
   return (
     <Wrapper>
       <GlobalStyle />
-      <Box />
-      <div></div>
-      <motion.div></motion.div>
+      <Box
+        // transition={{ type: "spring", stiffness: 10 }}
+        // transition={{ type: "spring", damping: 2, mass: 5 }}
+        transition={{ type: "spring", bounce: 0.25, delay: 1 }}
+        initial={{ scale: 0 }}
+        animate={{ scale: 1, rotateZ: 360 }}
+      />
+      {/* <Box
+        transition={{ delay: 3, duration: 3 }}
+        animate={{ borderRadius: "100px" }}
+      /> */}
     </Wrapper>
   );
 }

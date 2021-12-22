@@ -1,7 +1,7 @@
 import { DragDropContext, DropResult } from "react-beautiful-dnd";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
-import { IToDo, toDoState } from "./Atoms";
+import { toDoState } from "./Atoms";
 import Board from "./Components/Board";
 
 const Wrapper = styled.div`
@@ -32,21 +32,23 @@ function App() {
         const boardCopy = [...allBoards[source.droppableId]];
         const sIndex = source.index;
         const dIndex = destination?.index;
-        const targetBoard = boardCopy.splice(sIndex, 1);
-        boardCopy.splice(dIndex, 0, targetBoard as any);
+        const taskObj = boardCopy[source.index];
+        boardCopy.splice(sIndex, 1);
+        boardCopy.splice(dIndex, 0, taskObj);
         return { ...allBoards, [source.droppableId]: boardCopy };
       });
     }
     if (source.droppableId !== destination.droppableId) {
       setToDos((allBoards) => {
-        const prvBoardCopy = [...allBoards[source.droppableId]];
-        const nxtBoardCopy = [...allBoards[destination.droppableId]];
-        const targetBoard = prvBoardCopy.splice(source.index, 1);
-        nxtBoardCopy.splice(destination.index, 0, targetBoard as any);
+        const boardCopy = [...allBoards[source.droppableId]];
+        const dropBoardCopy = [...allBoards[destination.droppableId]];
+        const taskObj = boardCopy[source.index];
+        boardCopy.splice(source.index, 1);
+        dropBoardCopy.splice(destination.index, 0, taskObj);
         return {
           ...allBoards,
-          [source.droppableId]: prvBoardCopy,
-          [destination.droppableId]: nxtBoardCopy,
+          [source.droppableId]: boardCopy,
+          [destination.droppableId]: dropBoardCopy,
         };
       });
     }

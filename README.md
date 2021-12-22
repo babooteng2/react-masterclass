@@ -79,6 +79,8 @@ npm i --save-dev @types/react-helmet
 npm i react-hook-form
 npm i react-beautiful-dnd
 npm i --save-dev @types/react-beautiful-dnd
-npm install framer-motion
+npm i framer-motion
+//framer-motion사용을 위해선  react create app 의 react script가 4버전이면 craco를 통해 override해야함
 npx create-react-app@5.0.0 my-app --template typescript
+npm i @craco/craco --save
 ```

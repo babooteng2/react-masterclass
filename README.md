@@ -79,4 +79,6 @@ npm i --save-dev @types/react-helmet
 npm i react-hook-form
 npm i react-beautiful-dnd
 npm i --save-dev @types/react-beautiful-dnd
+npm install framer-motion
+npx create-react-app@5.0.0 my-app --template typescript
 ```

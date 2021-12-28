@@ -2,6 +2,7 @@ import { Outlet, useMatch } from "react-router-dom";
 import styled from "styled-components";
 import { motion, Variants } from "framer-motion";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 const Nav = styled.nav`
   display: flex;
@@ -46,10 +47,18 @@ const Item = styled.li`
   }
 `;
 const Search = styled.span`
+  position: relative;
   color: white;
+  display: flex;
+  align-items: center;
   svg {
     height: 25px;
   }
+`;
+const Input = styled(motion.input)`
+  position: absolute;
+  right: 60px;
+  transform-origin: right;
 `;
 const Circle = styled(motion.span)`
   position: absolute;
@@ -73,9 +82,10 @@ const logoVariants: Variants = {
 };
 
 function Header() {
+  const [searchOpen, setSearchOpen] = useState(false);
   const homeMatch = useMatch("/");
   const tvMatch = useMatch("/tv");
-  console.log(homeMatch, tvMatch);
+  const toggleSearch = () => setSearchOpen((prev) => !prev);
   return (
     <>
       <Nav>
@@ -94,16 +104,20 @@ function Header() {
           <Items>
             <Item>
               <Link to="/">Home</Link>
-              {homeMatch && <Circle />}
+              {homeMatch && <Circle layoutId="circle" />}
             </Item>
             <Item>
               <Link to="/tv">Tv Shows</Link>
-              {tvMatch && <Circle />}
+              {tvMatch && <Circle layoutId="circle" />}
             </Item>
           </Items>
         </Col>
-        <Search>
-          <svg
+        <Search onClick={toggleSearch}>
+          <motion.svg
+            animate={{
+              x: searchOpen ? -175 : 0,
+              transition: { type: "tween" },
+            }}
             fill="currentColor"
             viewBox="0 0 20 20"
             xmlns="http://www.w3.org/2000/svg"
@@ -113,8 +127,17 @@ function Header() {
               d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
               clipRule="evenodd"
             ></path>
-          </svg>
+          </motion.svg>
         </Search>
+        <Input
+          animate={{
+            scaleX: searchOpen ? 1 : 0,
+            transition: { type: "tween" },
+          }}
+          exit={{ scaleX: 0 }}
+          type="text"
+          placeholder="Search for moive or tv show"
+        />
       </Nav>
       <Outlet />
     </>

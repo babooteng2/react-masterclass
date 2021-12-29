@@ -35,7 +35,7 @@ const Overview = styled.p`
 `;
 const Slider = styled(motion.div)`
   position: relative;
-  top: -100px;
+  top: -13rem;
 `;
 const Row = styled(motion.div)`
   display: grid;
@@ -45,19 +45,30 @@ const Row = styled(motion.div)`
   position: absolute;
   width: 100%;
 `;
-const Box = styled(motion.div)<{ bgPhoto: string }>`
+const Box = styled(motion.div)`
   background-color: white;
-  height: 200px;
-  color: red;
   font-size: 66px;
-  background-image: url(${(props) => (props.bgPhoto ? props.bgPhoto : "")});
-  background-repeat: no-repeat;
-  background-position: center center;
   &:first-child {
     transform-origin: center left;
   }
   &:last-child {
     transform-origin: center right;
+  }
+  img {
+    width: 100%;
+    height: 100%;
+  }
+`;
+const Info = styled(motion.div)`
+  padding: 20px;
+  background-color: ${(props) => props.theme.black.lighter};
+  opacity: 0;
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  h4 {
+    text-align: center;
+    font-size: 18px;
   }
 `;
 const boxVariants = {
@@ -66,6 +77,17 @@ const boxVariants = {
     scale: 1.3,
     transition: {
       delay: 0.2,
+      duration: 0.2,
+      y: -50,
+    },
+  },
+};
+const infoVariants = {
+  hover: {
+    opacity: 1,
+    transition: {
+      delay: 0.2,
+      duration: 0.2,
       y: -50,
     },
   },
@@ -128,12 +150,19 @@ function Home() {
                   .map((movie) => (
                     <Box
                       key={movie.id}
-                      bgPhoto={makeImagePath(movie.backdrop_path, "w500")}
                       variants={boxVariants}
                       initial="normal"
                       whileHover="hover"
                       transition={{ type: "tween" }}
-                    ></Box>
+                    >
+                      <img
+                        src={makeImagePath(movie.backdrop_path, "w500")}
+                        alt={movie.title}
+                      />
+                      <Info variants={infoVariants}>
+                        <h4>{movie.title}</h4>
+                      </Info>
+                    </Box>
                   ))}
               </Row>
             </AnimatePresence>

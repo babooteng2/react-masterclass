@@ -53,7 +53,23 @@ const Box = styled(motion.div)<{ bgPhoto: string }>`
   background-image: url(${(props) => (props.bgPhoto ? props.bgPhoto : "")});
   background-repeat: no-repeat;
   background-position: center center;
+  &:first-child {
+    transform-origin: center left;
+  }
+  &:last-child {
+    transform-origin: center right;
+  }
 `;
+const boxVariants = {
+  normal: { scale: 1 },
+  hover: {
+    scale: 1.3,
+    transition: {
+      delay: 0.2,
+      y: -50,
+    },
+  },
+};
 const rowVariants = {
   hidden: {
     x: window.outerWidth + 5,
@@ -113,6 +129,10 @@ function Home() {
                     <Box
                       key={movie.id}
                       bgPhoto={makeImagePath(movie.backdrop_path, "w500")}
+                      variants={boxVariants}
+                      initial="normal"
+                      whileHover="hover"
+                      transition={{ type: "tween" }}
                     ></Box>
                   ))}
               </Row>

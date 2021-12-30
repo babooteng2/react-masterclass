@@ -7,12 +7,11 @@ import Tv from "./Routes/Tv";
 function App() {
   return (
     <Router>
+      <Header />
       <Routes>
-        <Route path="/" element={<Header />}>
-          <Route path="/tv" element={<Tv />} />
-          <Route path="/search" element={<Search />} />
-          <Route path="/" element={<Home />} />
-        </Route>
+        <Route path="/tv" element={<Tv />} />
+        <Route path="/search" element={<Search />} />
+        <Route path="/*" element={<Home />} />
       </Routes>
     </Router>
   );

@@ -1,4 +1,4 @@
-import { Outlet, useMatch } from "react-router-dom";
+import { useMatch } from "react-router-dom";
 import styled from "styled-components";
 import {
   motion,
@@ -176,7 +176,6 @@ function Header() {
           placeholder="Search for moive or tv show"
         />
       </Nav>
-      <Outlet />
     </>
   );
 }

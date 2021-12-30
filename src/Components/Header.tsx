@@ -1,4 +1,4 @@
-import { useMatch } from "react-router-dom";
+import { useMatch, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import {
   motion,
@@ -8,6 +8,7 @@ import {
 } from "framer-motion";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
 
 const Nav = styled(motion.nav)`
   display: flex;
@@ -71,6 +72,8 @@ const Input = styled(motion.input)`
   font-size: 16px;
   border: 1px solid ${(props) => props.theme.white.lighter};
   width: 17rem;
+  top: -3px;
+  right: 0;
 `;
 const Circle = styled(motion.span)`
   position: absolute;
@@ -96,8 +99,12 @@ const navVariants = {
   top: { backgroundColor: "rgba(0,0,0,0)" },
   scroll: { backgroundColor: "rgba(0,0,0,1)" },
 };
+interface IForm {
+  keyword: string;
+}
 
 function Header() {
+  const history = useNavigate();
   const [searchOpen, setSearchOpen] = useState(false);
   const homeMatch = useMatch("/");
   const tvMatch = useMatch("/tv");
@@ -125,6 +132,11 @@ function Header() {
       }
     });
   }, [scrollY, navAnimation]);
+  const { register, handleSubmit } = useForm<IForm>();
+  const onValid = (data: IForm) => {
+    console.log(data);
+    history(`/search?keyword=${data.keyword}`);
+  };
   return (
     <>
       <Nav initial={"top"} animate={navAnimation} variants={navVariants}>
@@ -151,30 +163,33 @@ function Header() {
             </Item>
           </Items>
         </Col>
-        <Search onClick={toggleSearch}>
-          <motion.svg
-            animate={{
-              x: searchOpen ? "-15rem" : 0,
-              transition: { type: "tween" },
-            }}
-            fill="currentColor"
-            viewBox="0 0 20 20"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              fillRule="evenodd"
-              d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-              clipRule="evenodd"
-            ></path>
-          </motion.svg>
-        </Search>
-        <Input
-          animate={inputAnimation}
-          initial={{ scaleX: 0 }}
-          transition={{ type: "tween" }}
-          type="text"
-          placeholder="Search for moive or tv show"
-        />
+        <form onSubmit={handleSubmit(onValid)} style={{ position: "relative" }}>
+          <Search onClick={toggleSearch}>
+            <motion.svg
+              animate={{
+                x: searchOpen ? "-15rem" : 0,
+                transition: { type: "tween" },
+              }}
+              fill="currentColor"
+              viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fillRule="evenodd"
+                d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                clipRule="evenodd"
+              ></path>
+            </motion.svg>
+          </Search>
+          <Input
+            {...register("keyword", { required: true, minLength: 2 })}
+            animate={inputAnimation}
+            initial={{ scaleX: 0 }}
+            transition={{ type: "tween" }}
+            type="text"
+            placeholder="Search for moive or tv show"
+          />
+        </form>
       </Nav>
     </>
   );

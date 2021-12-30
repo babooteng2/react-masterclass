@@ -23,3 +23,7 @@ export function getMovies() {
     `${BASE_PATH}/movie/now_playing?api_key=${process.env.REACT_APP_TMDB_KEY}`
   ).then((response) => response.json());
 }
+
+/*
+https://api.themoviedb.org/3/search/multi?api_key=${process.env.REACT_APP_TMDB_KEY}&language=en-US&query=dune&page=1&include_adult=false
+*/

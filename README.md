@@ -84,3 +84,10 @@ npm i framer-motion
 npx create-react-app@5.0.0 my-app --template typescript
 npm i @craco/craco --save
 ```
+
+# To-Do
+
+- [ ] Home - more movies
+- [ ] slider - improve slider component
+- [ ] Tv Shows - show tv shows
+- [ ] search - show search results

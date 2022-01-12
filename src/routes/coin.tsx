@@ -1,7 +1,7 @@
+import { Helmet, HelmetProvider } from "react-helmet-async";
 import { useQuery } from "react-query";
-import { Helmet } from "react-helmet";
 import { Route, Routes, useLocation, useMatch, useParams } from "react-router";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { fetchCoinInfo, fetchCoinTickers } from "../api";
 import Chart from "./Chart";
@@ -17,6 +17,7 @@ const Header = styled.header`
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
 `;
 const Title = styled.h1`
   font-size: 2em;
@@ -57,8 +58,7 @@ const Tabs = styled.div`
   gap: 10px;
 `;
 const Tab = styled.span<{ isActive: boolean }>`
-  color: ${(props) =>
-    props.isActive ? props.theme.accentColor : props.theme.textColor};
+  color: ${(props) => (props.isActive ? props.theme.accentColor : props.theme.textColor)};
   text-align: center;
   text-transform: uppercase;
   font-size: 12px;
@@ -69,6 +69,17 @@ const Tab = styled.span<{ isActive: boolean }>`
   a {
     display: block;
   }
+`;
+const BackBtn = styled.button`
+  position: absolute;
+  right: 0;
+  bottom: 20px;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 7px;
+  border-radius: 10px;
+  color: ${(props) => props.theme.textColor};
+  font-family: "Source Sans Pro";
+  font-weight: 300;
 `;
 interface IInfoData {
   id: string;
@@ -127,10 +138,10 @@ interface IPriceData {
 function Coin() {
   const { coinId } = useParams();
   const { state } = useLocation();
+  const navigate = useNavigate();
   const priceMatch = useMatch("/:coinId/price");
-  const { isLoading: infoLoading, data: infoData } = useQuery<IInfoData>(
-    ["info", coinId],
-    () => fetchCoinInfo(coinId)
+  const { isLoading: infoLoading, data: infoData } = useQuery<IInfoData>(["info", coinId], () =>
+    fetchCoinInfo(coinId)
   );
   const { isLoading: tickersLoading, data: tickersData } = useQuery<IPriceData>(
     ["tickers", coinId],
@@ -140,19 +151,19 @@ function Coin() {
     }
   );
   const loading = infoLoading || tickersLoading;
+  const backClickEH = () => {
+    navigate("/");
+  };
   return (
     <Container>
-      <Helmet>
-        <title>
-          {state?.name ? state.name : loading ? "Loading..." : infoData?.name}
-        </title>
-      </Helmet>
+      <HelmetProvider>
+        <Helmet>
+          <title>{state?.name ? state.name : loading ? "Loading..." : infoData?.name}</title>
+        </Helmet>
+      </HelmetProvider>
       <Header>
-        {
-          <Title>
-            {state?.name ? state.name : loading ? "Loading..." : infoData?.name}
-          </Title>
-        }
+        {<Title>{state?.name ? state.name : loading ? "Loading..." : infoData?.name}</Title>}
+        <BackBtn onClick={backClickEH}>Back to Coins</BackBtn>
       </Header>
       {loading ? (
         <Loader>Loading...</Loader>

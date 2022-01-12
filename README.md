@@ -68,14 +68,15 @@ https://api.coinpaprika.com/v1/coins/btc-bitcoin
 coin price
 https://api.coinpaprika.com/v1/tickers/btc-bitcoin
 direct link to the head of document
-npm i react-helmet
-npm i --save-dev @types/react-helmet
+~~npm i react-helmet~~
+~~npm i --save-dev @types/react-helmet~~
+npm i react-helmet-async
 ```
 
 #### Code Challange
 
 ### ToDos
 
-- [] 1. 뒤로가기버튼
-- [] 2. price 제작
-- [] 3. chart 에 candlestick 적용
+- [x] 1. 뒤로가기버튼
+- [ ] 2. price 제작
+- [ ] 3. chart 에 candlestick 적용

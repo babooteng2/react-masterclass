@@ -101,7 +101,7 @@ interface IInfoData {
   first_data_at: string;
   last_data_at: string;
 }
-interface IPriceData {
+export interface IPriceData {
   id: string;
   name: string;
   symbol: string;
@@ -205,7 +205,7 @@ function Coin() {
           <Routes>
             <Route index element={<Chart coinId={coinId as string} />} />
             <Route path="chart" element={<Chart coinId={coinId as string} />} />
-            <Route path="price" element={<Price />} />
+            <Route path="price" element={<Price coinId={coinId as string} />} />
           </Routes>
         </>
       )}

@@ -78,5 +78,6 @@ npm i react-helmet-async
 ### ToDos
 
 - [x] 1. 뒤로가기버튼
-- [ ] 2. price 제작
+- [x] 2. price 제작
 - [ ] 3. chart 에 candlestick 적용
+- [ ] 4. light theme 적용

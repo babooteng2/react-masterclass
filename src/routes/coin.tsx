@@ -1,28 +1,17 @@
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import { useQuery } from "react-query";
 import { Route, Routes, useLocation, useMatch, useParams } from "react-router";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { fetchCoinInfo, fetchCoinTickers } from "../api";
 import Chart from "./Chart";
+import Header from "./Header";
 import Price from "./Price";
 
 const Container = styled.div`
   padding: 0px 20px;
   max-width: 480px;
   margin: 0 auto;
-`;
-const Header = styled.header`
-  height: 15vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-`;
-const Title = styled.h1`
-  font-size: 2em;
-  font-weight: bolder;
-  color: ${(props) => props.theme.accentColor};
 `;
 const Loader = styled.span`
   text-align: center;
@@ -32,7 +21,7 @@ const Overview = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.2);
   border-radius: 15px;
   padding: 15px 20px;
 
@@ -63,23 +52,12 @@ const Tab = styled.span<{ isActive: boolean }>`
   text-transform: uppercase;
   font-size: 12px;
   font-weight: 400;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.2);
   padding: 7px 0;
   border-radius: 10px;
   a {
     display: block;
   }
-`;
-const BackBtn = styled.button`
-  position: absolute;
-  right: 0;
-  bottom: 20px;
-  background-color: rgba(0, 0, 0, 0.5);
-  padding: 7px;
-  border-radius: 10px;
-  color: ${(props) => props.theme.textColor};
-  font-family: "Source Sans Pro";
-  font-weight: 300;
 `;
 interface IInfoData {
   id: string;
@@ -138,7 +116,6 @@ export interface IPriceData {
 function Coin() {
   const { coinId } = useParams();
   const { state } = useLocation();
-  const navigate = useNavigate();
   const priceMatch = useMatch("/:coinId/price");
   const { isLoading: infoLoading, data: infoData } = useQuery<IInfoData>(["info", coinId], () =>
     fetchCoinInfo(coinId)
@@ -151,9 +128,6 @@ function Coin() {
     }
   );
   const loading = infoLoading || tickersLoading;
-  const backClickEH = () => {
-    navigate("/");
-  };
   return (
     <Container>
       <HelmetProvider>
@@ -161,10 +135,7 @@ function Coin() {
           <title>{state?.name ? state.name : loading ? "Loading..." : infoData?.name}</title>
         </Helmet>
       </HelmetProvider>
-      <Header>
-        {<Title>{state?.name ? state.name : loading ? "Loading..." : infoData?.name}</Title>}
-        <BackBtn onClick={backClickEH}>Back to Coins</BackBtn>
-      </Header>
+      <Header infoDataName={infoData?.name} loading={loading} />
       {loading ? (
         <Loader>Loading...</Loader>
       ) : (

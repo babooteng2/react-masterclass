@@ -22,7 +22,7 @@ const Overview = styled.div`
   display: flex;
   justify-content: space-around;
   align-items: center;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.2);
   border-radius: 15px;
   padding: 15px 20px;
   margin-bottom: 10px;
@@ -78,7 +78,7 @@ function Price({ coinId }: PriceProps) {
           <Overview>
             <OverviewItem>
               <span>ATH Price ( {data?.quotes.USD.ath_date.toString().substring(0, 10)} )</span>
-              <span>
+              <span style={{ color: "#3498db" }}>
                 $
                 {data?.quotes.USD.ath_price.toLocaleString("ko-kr", {
                   maximumSignificantDigits: 11,
@@ -87,7 +87,9 @@ function Price({ coinId }: PriceProps) {
             </OverviewItem>
             <OverviewItem>
               <span>Max rate</span>
-              <PercentSpan value={Math.max(rates[0]!, rates[1]!, rates[2]!, rates[3]!)}>
+              <PercentSpan
+                style={{ fontSize: 26 }}
+                value={Math.max(rates[0]!, rates[1]!, rates[2]!, rates[3]!)}>
                 {Math.max(rates[0]!, rates[1]!, rates[2]!, rates[3]!)}%
               </PercentSpan>
             </OverviewItem>

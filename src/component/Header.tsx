@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { useMatch, useLocation, useNavigate } from "react-router";
+import ToggleTheme from "./ToggleTheme";
 
 const HeaderSection = styled.header`
   height: 10vh;
@@ -41,6 +42,7 @@ function Header({ infoDataName, loading }: HeaderProps) {
         {coinsMatch ? "Coins" : state ? state.name : loading ? "loading..." : infoDataName}
       </Title>
       {coinsMatch ? null : <BackBtn onClick={backClickEH}>Back to Coins</BackBtn>}
+      <ToggleTheme />
     </HeaderSection>
   );
 }

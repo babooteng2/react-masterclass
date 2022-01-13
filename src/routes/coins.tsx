@@ -3,7 +3,7 @@ import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { fetchCoins } from "../api";
-import Header from "./Header";
+import Header from "../component/Header";
 
 const Container = styled.div`
   padding: 0px 20px;
@@ -16,6 +16,9 @@ const Coin = styled.li`
   color: black;
   border-radius: 15px;
   margin-bottom: 10px;
+  ::before {
+    opacity: 0;
+  }
   a {
     display: flex;
     align-items: center;
@@ -25,6 +28,16 @@ const Coin = styled.li`
   &:hover {
     a {
       color: ${(props) => props.theme.accentColor};
+    }
+  }
+  @keyframes Fadein {
+    from {
+      opacity: 0;
+      margin-bottom: 100vh;
+    }
+    to {
+      opacity: 1;
+      margin-bottom: 10px;
     }
   }
 `;
@@ -61,8 +74,12 @@ function Coins() {
         <Loader>Loading...</Loader>
       ) : (
         <CoinsList>
-          {data?.slice(0, 100).map((coin) => (
-            <Coin key={coin.id}>
+          {data?.slice(0, 100).map((coin, index) => (
+            <Coin
+              key={coin.id}
+              style={{
+                animation: `2s ease .${index}s 1 normal none running Fadein`,
+              }}>
               <Link to={`/${coin.id}`} state={{ name: coin.name, rank: coin.rank }}>
                 <Img
                   src={`https://cryptoicon-api.vercel.app/api/icon/${coin.symbol.toLowerCase()}`}

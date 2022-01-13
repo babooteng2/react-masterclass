@@ -5,7 +5,7 @@ Learn and dominate the React ecosystem once and for all.
 ### Using:
 
 - [x] Styled Components
-- [ ] Recoil
+- [x] Recoil
 - [x] React Query
 - [x] React Router DOM
 - [x] Apex Charts
@@ -19,6 +19,12 @@ Learn and dominate the React ecosystem once and for all.
 
 ```node
 npm i styled-components
+```
+
+# Recoil
+
+```node
+npm i recoil
 ```
 
 vscode extensions(ctrl+shift+x)
@@ -50,7 +56,13 @@ npm i react-router-dom react-query
 npm install --save react-apexcharts apexcharts
 ```
 
-# eg
+# React Icons
+
+```node
+npm i react-icons --save
+```
+
+# reference
 
 ```node
 font
@@ -80,4 +92,4 @@ npm i react-helmet-async
 - [x] 1. 뒤로가기버튼
 - [x] 2. price 제작
 - [ ] 3. chart 에 candlestick 적용
-- [ ] 4. light theme 적용
+- [x] 4. light theme 적용 - useRcoil

@@ -5,6 +5,8 @@ export const darkTheme: DefaultTheme = {
   textColor: "#ecf0f1",
   accentColor: "#9b59b6",
   boardColor: "#ffffff",
+  black: "#bdc3c7",
+  white: "#2c3e50",
 };
 
 export const lightTheme: DefaultTheme = {
@@ -12,4 +14,6 @@ export const lightTheme: DefaultTheme = {
   textColor: "#2c3e50",
   accentColor: "#8e44ad",
   boardColor: "#bdc3c7",
+  black: "#2c3e50",
+  white: "#bdc3c7",
 };

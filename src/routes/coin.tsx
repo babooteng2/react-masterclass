@@ -4,8 +4,8 @@ import { Route, Routes, useLocation, useMatch, useParams } from "react-router";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { fetchCoinInfo, fetchCoinTickers } from "../api";
+import Header from "../component/Header";
 import Chart from "./Chart";
-import Header from "./Header";
 import Price from "./Price";
 
 const Container = styled.div`

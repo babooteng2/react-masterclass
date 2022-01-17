@@ -1,13 +1,14 @@
-import ApexChart from "react-apexcharts";
+import React from "react";
 import { useQuery } from "react-query";
-import { useRecoilValue } from "recoil";
-import { fetchCoinHistory } from "../api";
-import { isDarkAtom } from "../Atoms";
-
-interface ChartProps {
+import { useRecoilState, useRecoilValue } from "recoil";
+import { enumKeys, fetchCoinHistory } from "../api";
+import { chartTypes, CHART_TYPES, isDarkAtom } from "../Atoms";
+import CandleChart from "../component/CandleChart";
+import LineChart from "../component/LineChart";
+interface IChartProps {
   coinId: string;
 }
-interface IHistorical {
+export interface IHistorical {
   time_open: string;
   time_close: string;
   open: number;
@@ -17,72 +18,42 @@ interface IHistorical {
   volume: number;
   market_cap: number;
 }
-function Chart({ coinId }: ChartProps) {
+export interface IChartTypesProps {
+  data?: IHistorical[];
+  isDark?: boolean;
+}
+
+const ChartTypes = ({ data, isDark }: IChartTypesProps) => ({
+  0: <LineChart data={data} isDark={isDark} />,
+  1: <CandleChart data={data} isDark={isDark} />,
+});
+
+function Chart({ coinId }: IChartProps) {
+  const [cType, setCtype] = useRecoilState(chartTypes);
   const { isLoading, data } = useQuery<IHistorical[]>(["ohlcv", coinId], () =>
     fetchCoinHistory(coinId)
   );
   const isDark = useRecoilValue(isDarkAtom);
+  const buildSelectBox = () => {
+    const result = [];
+    for (const key in enumKeys(CHART_TYPES)) {
+      result.push(
+        <option key={key} value={key}>
+          {CHART_TYPES[key]}
+        </option>
+      );
+    }
+    return result;
+  };
+  const selectEH = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setCtype(+e.currentTarget.value);
+  };
   return (
     <div>
-      {isLoading ? (
-        "Loading chart..."
-      ) : (
-        <ApexChart
-          type="line"
-          series={[
-            {
-              name: "Price",
-              data: data?.map((prop) => prop.close),
-            },
-          ]}
-          options={{
-            theme: {
-              mode: isDark ? "dark" : "light",
-            },
-            chart: {
-              height: 300,
-              width: 500,
-              background: "transparent",
-              toolbar: {
-                show: false,
-              },
-            },
-            grid: {
-              show: false,
-            },
-            stroke: {
-              curve: "smooth",
-              width: 3,
-            },
-            yaxis: { labels: { show: false } },
-            xaxis: {
-              /* type: "datetime", */
-              labels: { show: false },
-              axisBorder: {
-                show: false,
-              },
-              axisTicks: {
-                show: false,
-              },
-              categories: data?.map((prop) => prop.time_close.slice(0, 10)),
-            },
-            fill: {
-              colors: ["#0fbcf9"],
-              type: "gradient",
-              gradient: {
-                type: "Horizontal",
-                gradientToColors: ["#0be881"],
-                stops: [0, 100],
-              },
-            },
-            tooltip: {
-              y: {
-                formatter: (value) => `$${value.toFixed(3)}`,
-              },
-            },
-          }}
-        />
-      )}
+      <select onChange={selectEH} value={cType} defaultValue={cType}>
+        {buildSelectBox()}
+      </select>
+      {isLoading ? "Loading chart..." : ChartTypes({ data, isDark })[cType]}
     </div>
   );
 }

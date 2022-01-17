@@ -83,6 +83,8 @@ direct link to the head of document
 ~~npm i react-helmet~~
 ~~npm i --save-dev @types/react-helmet~~
 npm i react-helmet-async
+Apex chart
+https://apexcharts.com/docs/chart-types/candlestick/
 ```
 
 #### Code Challange
@@ -91,5 +93,5 @@ npm i react-helmet-async
 
 - [x] 1. 뒤로가기버튼
 - [x] 2. price 제작
-- [ ] 3. chart 에 candlestick 적용
+- [x] 3. chart 에 candlestick 적용
 - [x] 4. light theme 적용 - useRcoil
